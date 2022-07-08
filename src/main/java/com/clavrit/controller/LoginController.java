@@ -1,5 +1,6 @@
 package com.clavrit.controller;
 
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -9,6 +10,11 @@ import com.clavrit.response.LoginResponse;
 
 @RestController
 public class LoginController {
+	
+	@GetMapping("")
+	public String home () {
+		return "welcome home";
+	}
 
 	@PostMapping("/login")
 	public LoginResponse login(@RequestBody LoginDto loginDto) {
