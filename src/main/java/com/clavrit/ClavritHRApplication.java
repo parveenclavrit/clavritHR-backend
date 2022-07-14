@@ -9,5 +9,4 @@ public class ClavritHRApplication {
     public static void main(String[] args) {
         SpringApplication.run(ClavritHRApplication.class, args);
     }
-
 }

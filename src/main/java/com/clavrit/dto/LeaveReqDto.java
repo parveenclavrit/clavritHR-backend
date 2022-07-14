@@ -2,17 +2,35 @@ package com.clavrit.dto;
 
 public class LeaveReqDto {
 	
+	private String days;
+	private String leaveType;
 	private String message;
-	private String hour;
 	
 	public LeaveReqDto() {
 		super();
 	}
-	
-	public LeaveReqDto(String message, String hour) {
+
+	public LeaveReqDto(String days, String leaveType, String message) {
 		super();
+		this.days = days;
+		this.leaveType = leaveType;
 		this.message = message;
-		this.hour = hour;
+	}
+
+	public String getDays() {
+		return days;
+	}
+
+	public void setDays(String days) {
+		this.days = days;
+	}
+
+	public String getLeaveType() {
+		return leaveType;
+	}
+
+	public void setLeaveType(String leaveType) {
+		this.leaveType = leaveType;
 	}
 
 	public String getMessage() {
@@ -23,17 +41,9 @@ public class LeaveReqDto {
 		this.message = message;
 	}
 
-	public String getHour() {
-		return hour;
-	}
-
-	public void setHour(String hour) {
-		this.hour = hour;
-	}
-
 	@Override
 	public String toString() {
-		return "LeaveReqDto [message=" + message + ", hour=" + hour + "]";
+		return "LeaveReqDto [days=" + days + ", leaveType=" + leaveType + ", message=" + message + "]";
 	}
 	
 }
