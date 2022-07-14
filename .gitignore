@@ -50,5 +50,5 @@ Thumbs.db
 
 .classpath
 .project
-.settings/
+.settings/*
 bin/
