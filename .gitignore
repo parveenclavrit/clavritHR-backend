@@ -50,5 +50,10 @@ Thumbs.db
 
 .classpath
 .project
-.settings/
+.settings/*
 bin/
+
+.project*
+.settings/*
+.settings/org.eclipse.jdt.core.prefs
+target/*
