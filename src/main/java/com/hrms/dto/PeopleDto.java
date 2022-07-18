@@ -1,4 +1,4 @@
-package com.clavrit.dto;
+package com.hrms.dto;
 
 import java.util.Date;
 

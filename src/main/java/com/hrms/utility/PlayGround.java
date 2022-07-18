@@ -1,8 +1,8 @@
-package com.clavrit.utility;
-
-import com.clavrit.dto.PeopleDto;
+package com.hrms.utility;
 
 import java.util.List;
+
+import com.hrms.dto.PeopleDto;
 
 public class PlayGround {
     public static void main(String[] args) {

@@ -1,4 +1,4 @@
-package com.clavrit.controller;
+package com.hrms.controller;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.clavrit.dto.LeaveReqDto;
+import com.hrms.dto.LeaveReqDto;
 
 @RestController
 public class LeaveController {

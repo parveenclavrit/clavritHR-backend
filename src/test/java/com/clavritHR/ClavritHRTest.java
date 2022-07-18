@@ -18,7 +18,7 @@ package com.clavritHR;
 
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 
-import com.clavrit.controller.LoginController;
+import com.hrms.controller.LoginController;
 
 @WebMvcTest(controllers = LoginController.class)
 public class ClavritHRTest {

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.clavrit.response;
+package com.hrms.response;
 
 /**
  * @author Parveen

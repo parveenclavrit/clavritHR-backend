@@ -1,9 +1,10 @@
-package com.clavrit.controller;
+package com.hrms.controller;
 
-import com.clavrit.dto.PeopleDto;
-import com.clavrit.utility.PeopleList;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.hrms.dto.PeopleDto;
+import com.hrms.utility.PeopleList;
 
 import java.util.List;
 @RestController

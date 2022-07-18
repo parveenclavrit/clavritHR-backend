@@ -1,4 +1,4 @@
-package com.clavrit.dto;
+package com.hrms.dto;
 
 public class LeaveReqDto {
 	

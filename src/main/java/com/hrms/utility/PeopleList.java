@@ -1,9 +1,9 @@
-package com.clavrit.utility;
-
-import com.clavrit.dto.PeopleDto;
+package com.hrms.utility;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import com.hrms.dto.PeopleDto;
 
 public class PeopleList {
 public List<PeopleDto> getPeople(){
