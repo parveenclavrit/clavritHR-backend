@@ -2,24 +2,24 @@ package com.hrms.dto;
 
 public class LoginDto {
 	
-	private String emailId;
+	private String id;
 	private String password;
 	
 	public LoginDto() {
 	}
 
-	public LoginDto(String emailId, String password) {
+	public LoginDto(String id, String password) {
 		super();
-		this.emailId = emailId;
+		this.id = id;
 		this.password = password;
 	}
 
-	public String getEmailId() {
-		return emailId;
+	public String getId() {
+		return id;
 	}
 
-	public void setEmailId(String emailId) {
-		this.emailId = emailId;
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	public String getPassword() {

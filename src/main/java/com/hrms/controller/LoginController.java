@@ -32,14 +32,15 @@ public class LoginController {
 	@PostMapping("/login")
 	public LoginResponse login(@RequestBody LoginDto loginDto) {
 		LoginResponse response = new LoginResponse();
-		if(loginDto.getEmailId().equalsIgnoreCase("Parveen@clavrit.com") && loginDto.getPassword().equalsIgnoreCase("password")) {
+		EmployeeMaster employeeMasterEntity = eMasterSerice.getEmployee(Integer.parseInt(loginDto.getId()));
+		if( employeeMasterEntity.getPassword().equals(loginDto.getPassword()) ) {
 			response.setCode(200);
 			response.setMessage("success");
-			response.setData(loginDto);
-		}else if(loginDto.getEmailId().equalsIgnoreCase("meenakshi@clavrit.com") && loginDto.getPassword().equalsIgnoreCase("password")) {
-			response.setCode(201);
-			response.setMessage("success");
-			response.setData(loginDto);
+			response.setData(employeeMasterEntity);
+//		}else if(loginDto.getEmailId().equalsIgnoreCase("meenakshi@clavrit.com") && loginDto.getPassword().equalsIgnoreCase("password")) {
+//			response.setCode(201);
+//			response.setMessage("success");
+//			response.setData(loginDto);
 		}else {
 			response.setCode(401);
 			response.setMessage("unauthorized");

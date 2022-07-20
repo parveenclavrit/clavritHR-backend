@@ -11,6 +11,6 @@ import com.hrms.entity.EmployeeMaster;
 @Repository
 public interface EmployeeMasterRepository extends JpaRepository<EmployeeMaster, Integer> {
 
-	public  List<EmployeeMaster> findAllByIdIn(List<Integer> ids);
+	  List<EmployeeMaster> findAllByIdIn(List<Integer> ids);
 
 }
