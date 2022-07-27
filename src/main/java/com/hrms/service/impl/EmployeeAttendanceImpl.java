@@ -24,7 +24,7 @@ public class EmployeeAttendanceImpl implements EmployeeAttendanceService {
 	@Override
 	public EmployeeAttendance getEmployeeAttendance(int id) {
 		Optional<EmployeeAttendance> AttendanceList = this.eAttendanceRepo.findById(id);
-		return AttendanceList.isEmpty() ? null : AttendanceList.get();
+		return ! AttendanceList.isPresent() ? null : AttendanceList.get();
 	}
 	
 	@Override

@@ -21,7 +21,7 @@ public class EmployeeHrmsDetailServiceImpl implements EmployeeHrmsDetailService 
 	@Override
 	public EmployeeHrmsDetail getEmployee(int id) {
 		Optional<EmployeeHrmsDetail> employeeList = this.eRepo.findById(id);
-		return  employeeList.isEmpty() ? null : employeeList.get();
+		return !  employeeList.isPresent() ? null : employeeList.get();
 	}
 
  
