@@ -24,7 +24,7 @@ public class EmployeeMasterServiceImpl implements EmployeeMasterService {
 	@Override
 	public EmployeeMaster getEmployee(int id) {
 		Optional<EmployeeMaster> EmployeeList = this.eRepo.findById(id);
-		return EmployeeList.isEmpty() ? null : EmployeeList.get();
+		return ! EmployeeList.isPresent() ? null : EmployeeList.get();
 	}
 
 	@Override

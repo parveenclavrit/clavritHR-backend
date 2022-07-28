@@ -1,14 +1,14 @@
-package com.hrms.dto;
+package com.hrms.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import java.util.Date;
+import javax.persistence.*;
 
-public class PeopleDto {
-
-
+@Entity
+@Table (name="people")
+public class ClavritPeople {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    //@Column(name = "id", nullable = false)
+    private int id;
 
     private String name;
     private String address;
@@ -17,18 +17,14 @@ public class PeopleDto {
     private String dob;
     private String joining_date;
 
-    public PeopleDto(){
+    public int getId() {
+        return id;
+    }
 
+    public void setId(int id) {
+        this.id = id;
     }
-    public PeopleDto(String name, String address, String emp_mail, String phone_num, String dob,String joining_date){
-       super();
-        this.name=name;
-        this.address=address;
-        this.emp_mail=emp_mail;
-        this.phone_num=phone_num;
-        this.dob=dob;
-        this.joining_date=joining_date;
-    }
+
     public String getName() {
         return name;
     }
