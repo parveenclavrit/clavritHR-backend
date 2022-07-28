@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.hrms.dto.EProfileDataDto;
 import com.hrms.dto.EmployeeMasterDto;
 import com.hrms.entity.EmployeeMaster;
 import com.hrms.repository.EmployeeMasterRepository;
