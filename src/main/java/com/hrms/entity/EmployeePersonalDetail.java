@@ -15,8 +15,8 @@ import javax.persistence.TemporalType;
 public class EmployeePersonalDetail {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
-	private int emp_id;
+	private Integer id;
+	private Integer emp_id;
 	private String name;
 	private String gender;
 	private int age;
@@ -39,19 +39,19 @@ public class EmployeePersonalDetail {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date udated_on;
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
-	public int getEmp_id() {
+	public Integer getEmp_id() {
 		return emp_id;
 	}
 
-	public void setEmp_id(int emp_id) {
+	public void setEmp_id(Integer emp_id) {
 		this.emp_id = emp_id;
 	}
 

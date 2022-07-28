@@ -1,30 +1,19 @@
-package com.hrms.entity;
+package com.hrms.dto;
 
 import java.util.Date;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
-@Entity
-@Table(name = "employee_master")
-public class EmployeeMaster {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+public class EmployeeMasterDto {
 	private int id;
 	private String role;
 	private char active;
 	private String type;
 	private String password;
-	
-	@Temporal(TemporalType.TIMESTAMP)
 	private Date created_on;
-	@Temporal(TemporalType.TIMESTAMP)
 	private Date updated_on;
+	
+	public EmployeeMasterDto() {
+		super();
+	}
 	public int getId() {
 		return id;
 	}
@@ -66,6 +55,11 @@ public class EmployeeMaster {
 	}
 	public void setUpdated_on(Date updated_on) {
 		this.updated_on = updated_on;
+	}
+	@Override
+	public String toString() {
+		return "EmployeeMasterDto [id=" + id + ", role=" + role + ", active=" + active + ", type=" + type
+				+ ", password=" + password + ", created_on=" + created_on + ", updated_on=" + updated_on + "]";
 	}
 
 	
