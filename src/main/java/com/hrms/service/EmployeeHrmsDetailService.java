@@ -11,4 +11,5 @@ public interface EmployeeHrmsDetailService {
 
 	public EmployeeHrmsDetail saveEmployeeHrmsDetails(Date currentDate, EmployeeHrmsDetailDto empHrmsDetails);
 
+	EmployeeHrmsDetail saveEmployeeMaster(EmployeeHrmsDetail employeeHrmsDetail);
 }
