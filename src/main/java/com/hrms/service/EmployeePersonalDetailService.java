@@ -1,16 +1,16 @@
 package com.hrms.service;
 
-import java.util.List;
+import java.util.Date;
 
-import com.hrms.entity.EmployeeMaster;
+import com.hrms.dto.EmployeePersonalDetailsDto;
+import com.hrms.entity.EmployeePersonalDetail;
 
 
 public interface EmployeePersonalDetailService {
 
-	public EmployeeMaster getEmployee(int id);
+	public EmployeePersonalDetail getEmpPersonalDetailsById(Integer id);
 
-	public List<EmployeeMaster> getEmployeeByList(String idListSepByComma);
-	public EmployeeMaster saveEmployeeMaster(EmployeeMaster employeeMaster);
+	public EmployeePersonalDetail saveEmployeePersonalDetails(Date currentDate, EmployeePersonalDetailsDto personalDto);
 
 
 }
