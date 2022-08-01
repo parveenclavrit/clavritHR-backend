@@ -20,7 +20,7 @@ public class EmployeeHiringServiceImpl implements EmployeeHiringSevice {
 	@Override
 	public EmployeeHiringDetail getHiringDetails(int id) {
 		Optional<EmployeeHiringDetail> list = hiringrepo.findById(id);
-			return list.isEmpty()? null: list.get();
+			return ! list.isPresent()? null: list.get();
 	}
 
 	@Override
