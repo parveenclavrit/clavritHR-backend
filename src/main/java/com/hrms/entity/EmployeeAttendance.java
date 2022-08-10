@@ -7,15 +7,14 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
 
 @Entity
 public class EmployeeAttendance {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private Integer id;
 	@Column(name="emp_id")
-	private int empId;
+	private Integer empId;
 	@Column(name="punch_in")
 	private Date punchIn;
 	@Column(name="punch_out")
@@ -27,19 +26,19 @@ public class EmployeeAttendance {
 	
 	
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
-	public int getEmpId() {
+	public Integer getEmpId() {
 		return empId;
 	}
 
-	public void setEmpId(int empId) {
+	public void setEmpId(Integer empId) {
 		this.empId = empId;
 	}
 

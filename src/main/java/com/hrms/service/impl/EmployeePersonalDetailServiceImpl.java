@@ -44,4 +44,12 @@ public class EmployeePersonalDetailServiceImpl implements EmployeePersonalDetail
 	protected EmployeePersonalDetail saveEmployeePersonalDetails(EmployeePersonalDetail empDetails) {
 		return repo.save(empDetails);
 	}
+
+	@Override
+	public EmployeePersonalDetail getEmployeePersonalDetailsByEmployeeId(Integer emp_id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
 }

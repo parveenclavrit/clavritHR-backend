@@ -35,21 +35,15 @@ public class EmployeeMasterServiceImpl implements EmployeeMasterService {
 		return eRepo.findAllByIdIn(listInt);
 	}
 
-
 	@Override
 	@Transactional(rollbackFor = Exception.class)
 	public EmployeeMaster saveEmployeeMaster(final Date currentDate, final EmployeeMasterDto req) {
-		EmployeeMaster e1 = new EmployeeMaster();
-		e1.setActive(req.getActive());
-		e1.setRole(req.getRole());
-		e1.setType(req.getType());
-		e1.setCreated_on(currentDate);
-		e1.setUpdated_on(currentDate);
-		return this.saveEmployeeMaster(e1);
-	}
-
-	@Transactional
-	protected EmployeeMaster saveEmployeeMaster(EmployeeMaster employeeMaster) {
-		return this.eRepo.save(employeeMaster);
+		EmployeeMaster eM = new EmployeeMaster();
+		eM.setActive(req.getActive());
+		eM.setRole(req.getRole());
+		eM.setType(req.getType());
+		eM.setCreated_on(currentDate);
+		eM.setUpdated_on(currentDate);
+		return this.eRepo.save(eM);
 	}
 }

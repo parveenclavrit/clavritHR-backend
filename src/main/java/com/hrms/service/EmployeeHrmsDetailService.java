@@ -7,8 +7,11 @@ import com.hrms.entity.EmployeeHrmsDetail;
 
 public interface EmployeeHrmsDetailService {
 
-	public EmployeeHrmsDetail getEmployee(int id);
+	public EmployeeHrmsDetail getEmployee(Integer id);
 
-	public EmployeeHrmsDetail saveEmployeeHrmsDetails(Date currentDate, EmployeeHrmsDetailDto empHrmsDetails);
+	EmployeeHrmsDetail saveEmployeeHrmsDetails(Date currentDate, EmployeeHrmsDetailDto hrmsDto);
+
+	public EmployeeHrmsDetail getEmployeeByEmployeeId(Integer emp_id);
+
 
 }

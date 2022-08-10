@@ -2,45 +2,37 @@ package com.hrms.entity;
 
 import java.util.Date;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
 public class EmployeeHrmsDetail {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private Integer id;
 	private String email;
 	private String department;
 	private Date doj;
-	private int casual_leaves;
 	private int sick_leaves;
-	private int earn_leaves;
-	
-	@OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "emp_id")
-	private EmployeeMaster employeeMaster;
-	
+	private Integer emp_id;
+
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date created_on;
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date updated_on;
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
-
 
 	public String getEmail() {
 		return email;
@@ -66,28 +58,12 @@ public class EmployeeHrmsDetail {
 		this.doj = doj;
 	}
 
-	public int getCasual_leaves() {
-		return casual_leaves;
-	}
-
-	public void setCasual_leaves(int casual_leaves) {
-		this.casual_leaves = casual_leaves;
-	}
-
 	public int getSick_leaves() {
 		return sick_leaves;
 	}
 
 	public void setSick_leaves(int sick_leaves) {
 		this.sick_leaves = sick_leaves;
-	}
-
-	public int getEarn_leaves() {
-		return earn_leaves;
-	}
-
-	public void setEarn_leaves(int earn_leaves) {
-		this.earn_leaves = earn_leaves;
 	}
 
 	public Date getCreated_on() {
@@ -105,11 +81,13 @@ public class EmployeeHrmsDetail {
 	public void setUpdated_on(Date updated_on) {
 		this.updated_on = updated_on;
 	}
-	public EmployeeMaster getEmployeeMaster() {
-		return employeeMaster;
+
+	public Integer getEmp_id() {
+		return emp_id;
 	}
 
-	public void setEmployeeMaster(EmployeeMaster employeeMaster) {
-		this.employeeMaster = employeeMaster;
+	public void setEmp_id(Integer emp_id) {
+		this.emp_id = emp_id;
 	}
+
 }

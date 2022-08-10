@@ -3,13 +3,13 @@ package com.hrms.dto;
 import java.util.Date;
 
 public class EmployeeHrmsDetailDto {
-	private int id;
+
+	private Integer id;
 	private String email;
 	private String department;
 	private Date doj;
-	private int casual_leaves;
 	private int sick_leaves;
-	private int earn_leaves;
+	private Integer emp_id;
 	private Date created_on;
 	private Date updated_on;
 
@@ -17,14 +17,25 @@ public class EmployeeHrmsDetailDto {
 		super();
 	}
 
-	public int getId() {
+	public EmployeeHrmsDetailDto(Integer id, String email, String department, Date doj,int sick_leaves, Integer emp_id, Date created_on, Date updated_on) {
+		super();
+		this.id = id;
+		this.email = email;
+		this.department = department;
+		this.doj = doj;
+		this.sick_leaves = sick_leaves;
+		this.emp_id = emp_id;
+		this.created_on = created_on;
+		this.updated_on = updated_on;
+	}
+
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
-
 
 	public String getEmail() {
 		return email;
@@ -50,14 +61,6 @@ public class EmployeeHrmsDetailDto {
 		this.doj = doj;
 	}
 
-	public int getCasual_leaves() {
-		return casual_leaves;
-	}
-
-	public void setCasual_leaves(int casual_leaves) {
-		this.casual_leaves = casual_leaves;
-	}
-
 	public int getSick_leaves() {
 		return sick_leaves;
 	}
@@ -65,13 +68,13 @@ public class EmployeeHrmsDetailDto {
 	public void setSick_leaves(int sick_leaves) {
 		this.sick_leaves = sick_leaves;
 	}
-
-	public int getEarn_leaves() {
-		return earn_leaves;
+	
+	public Integer getEmp_id() {
+		return emp_id;
 	}
 
-	public void setEarn_leaves(int earn_leaves) {
-		this.earn_leaves = earn_leaves;
+	public void setEmp_id(Integer emp_id) {
+		this.emp_id = emp_id;
 	}
 
 	public Date getCreated_on() {
@@ -93,9 +96,7 @@ public class EmployeeHrmsDetailDto {
 	@Override
 	public String toString() {
 		return "EmployeeHrmsDetailDto [id=" + id + ", email=" + email + ", department=" + department + ", doj=" + doj
-				+ ", casual_leaves=" + casual_leaves + ", sick_leaves=" + sick_leaves + ", earn_leaves=" + earn_leaves
-				+ ", created_on=" + created_on + ", updated_on=" + updated_on + "]";
+				+ ", sick_leaves=" + sick_leaves + ",emp_id = " + emp_id + ", created_on=" + created_on + ", updated_on=" + updated_on + "]";
 	}
-	
-	
+
 }

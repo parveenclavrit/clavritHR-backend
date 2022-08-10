@@ -12,5 +12,7 @@ public interface EmployeePersonalDetailService {
 
 	public EmployeePersonalDetail saveEmployeePersonalDetails(Date currentDate, EmployeePersonalDetailsDto personalDto);
 
+	public EmployeePersonalDetail getEmployeePersonalDetailsByEmployeeId(Integer emp_id);
+
 
 }

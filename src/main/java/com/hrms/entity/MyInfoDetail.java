@@ -9,18 +9,17 @@ import javax.persistence.Id;
 public class MyInfoDetail {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-
-	private int id;
+	private Integer id;
 
 	private String name;
 	private String address;
 	private String emp_mail;
 	private String phone_num;
 	private String joining_date;
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 	public String getName() {

@@ -2,15 +2,13 @@ package com.hrms.entity;
 
 import java.util.Date;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
 @Entity
 public class EmployeePersonalDetail {
 	@Id
@@ -23,12 +21,6 @@ public class EmployeePersonalDetail {
 	private String address;
 	private String other_field_1;
 	private String other_field_2;
-	
-	@OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "emp_id", referencedColumnName = "id",  insertable = false, updatable = false)
-
-	private EmployeeMaster employeeMaster;
-	
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date created_on;
@@ -126,11 +118,5 @@ public class EmployeePersonalDetail {
 	public void setUdated_on(Date udated_on) {
 		this.udated_on = udated_on;
 	}
-	public EmployeeMaster getEmployeeMaster() {
-		return employeeMaster;
-	}
 
-	public void setEmployeeMaster(EmployeeMaster employeeMaster) {
-		this.employeeMaster = employeeMaster;
-	}
 }

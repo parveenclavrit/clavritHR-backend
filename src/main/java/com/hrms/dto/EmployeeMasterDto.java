@@ -1,35 +1,50 @@
 package com.hrms.dto;
 
+
 import java.util.Date;
 
 public class EmployeeMasterDto {
-	private int id;
+	
+	private Integer id;
 	private String role;
-	private char active;
+	private Character active;
 	private String type;
 	private String password;
 	private Date created_on;
 	private Date updated_on;
 	
-	public EmployeeMasterDto() {
+	public EmployeeMasterDto() {}
+	
+	public EmployeeMasterDto(Integer id, String role, Character active, String type, String password, Date created_on,
+			Date updated_on) {
 		super();
+		this.id = id;
+		this.role = role;
+		this.active = active;
+		this.type = type;
+		this.password = password;
+		this.created_on = created_on;
+		this.updated_on = updated_on;
 	}
-	public int getId() {
+	
+	public Integer getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
+
+	
 	public String getRole() {
 		return role;
 	}
 	public void setRole(String role) {
 		this.role = role;
 	}
-	public char getActive() {
+	public Character getActive() {
 		return active;
 	}
-	public void setActive(char active) {
+	public void setActive(Character active) {
 		this.active = active;
 	}
 	public String getType() {
@@ -61,6 +76,7 @@ public class EmployeeMasterDto {
 		return "EmployeeMasterDto [id=" + id + ", role=" + role + ", active=" + active + ", type=" + type
 				+ ", password=" + password + ", created_on=" + created_on + ", updated_on=" + updated_on + "]";
 	}
+
 
 	
 }

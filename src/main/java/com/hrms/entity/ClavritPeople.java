@@ -8,7 +8,7 @@ public class ClavritPeople {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     //@Column(name = "id", nullable = false)
-    private int id;
+    private Integer id;
 
     private String name;
     private String address;
@@ -17,11 +17,11 @@ public class ClavritPeople {
     private String dob;
     private String joining_date;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

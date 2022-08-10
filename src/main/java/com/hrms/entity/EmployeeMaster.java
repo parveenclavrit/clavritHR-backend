@@ -15,7 +15,7 @@ import javax.persistence.TemporalType;
 public class EmployeeMaster {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private Integer id;
 	private String role;
 	private char active;
 	private String type;
@@ -25,10 +25,11 @@ public class EmployeeMaster {
 	private Date created_on;
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date updated_on;
-	public int getId() {
+	
+	public Integer getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 	public String getRole() {
@@ -67,6 +68,4 @@ public class EmployeeMaster {
 	public void setUpdated_on(Date updated_on) {
 		this.updated_on = updated_on;
 	}
-
-	
 }
