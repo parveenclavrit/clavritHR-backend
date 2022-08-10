@@ -8,33 +8,69 @@ import java.util.Date;
 
 public class PeopleDto {
 
-
-
     private String name;
-    private String address;
-    private String emp_mail;
-    private String phone_num;
-    private String dob;
+    private String surname;
+    private String emp_status;
+    private String email;
+    private String job_title;
+    private String department;
     private String joining_date;
+    private String address;
 
-    public PeopleDto(){
-
-    }
-    public PeopleDto(String name, String address, String emp_mail, String phone_num, String dob,String joining_date){
-       super();
-        this.name=name;
-        this.address=address;
-        this.emp_mail=emp_mail;
-        this.phone_num=phone_num;
-        this.dob=dob;
-        this.joining_date=joining_date;
-    }
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
+    public String getEmp_status() {
+        return emp_status;
+    }
+
+    public void setEmp_status(String emp_status) {
+        this.emp_status = emp_status;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getJob_title() {
+        return job_title;
+    }
+
+    public void setJob_title(String job_title) {
+        this.job_title = job_title;
+    }
+
+    public String getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(String department) {
+        this.department = department;
+    }
+
+    public String getJoining_date() {
+        return joining_date;
+    }
+
+    public void setJoining_date(String joining_date) {
+        this.joining_date = joining_date;
     }
 
     public String getAddress() {
@@ -45,37 +81,18 @@ public class PeopleDto {
         this.address = address;
     }
 
-    public String getEmp_mail() {
-        return emp_mail;
-    }
-
-    public void setEmp_mail(String emp_mail) {
-        this.emp_mail = emp_mail;
-    }
-
-    public String getPhone_num() {
-        return phone_num;
-    }
-
-    public void setPhone_num(String phone_num) {
-        this.phone_num = phone_num;
-    }
-
-    public String getDob() {
-        return dob;
-    }
-
-    public void setDob(String dob) {
-        this.dob = dob;
-    }
-
-    public String getJoining_date() {
-        return joining_date;
-    }
-
-    public void setJoining_date(String  joining_date) {
+    public PeopleDto(String name, String surname, String emp_status, String email, String job_title, String department, String joining_date, String address) {
+        this.name = name;
+        this.surname = surname;
+        this.emp_status = emp_status;
+        this.email = email;
+        this.job_title = job_title;
+        this.department = department;
         this.joining_date = joining_date;
+        this.address = address;
     }
+    public PeopleDto(){
 
+    }
 
 }
