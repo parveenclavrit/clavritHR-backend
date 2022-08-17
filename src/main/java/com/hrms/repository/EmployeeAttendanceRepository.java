@@ -17,6 +17,14 @@ public interface EmployeeAttendanceRepository extends JpaRepository<EmployeeAtte
 	// EmployeeAttendance getTodayAttendance(Date todayDate);
 	 public List<EmployeeAttendance> getAttendanceByCreatedOnBetween(Date startDate, Date endDate);
     
-	@Query(value="SELECT * FROM employee_attendance WHERE created_on >= :startDate AND created_on <= :endDate",nativeQuery = true)
+	@Query(value="SELECT * FROM employee_attendance WHERE created_on >= :startDate AND created_on <= :endDate AND emp_id = :empId",nativeQuery = true)
+	List<EmployeeAttendance> findAllWithEmpId(Date startDate, Date endDate, int empId);
+
+	@Query(value="SELECT * FROM employee_attendance WHERE created_on >= :startDate AND created_on <= :endDate" ,nativeQuery = true)
 	List<EmployeeAttendance> findAllWithCreationDateTimeBefore(Date startDate, Date endDate);
+	
+//public List<EmployeeAttendance> getAttendanceByDateAndId(Date startDate, Date endDate, int empId);
+//    
+//	@Query(value="SELECT * FROM employee_attendance WHERE created_on >= :startDate AND created_on <= :endDate, And empId" ,nativeQuery = true)
+//	List<EmployeeAttendance> findAllWithCreationDateTimeAndId(Date startDate, Date endDate, int empId);
 }

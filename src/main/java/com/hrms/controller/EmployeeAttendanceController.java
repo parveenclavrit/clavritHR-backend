@@ -55,13 +55,31 @@ public class EmployeeAttendanceController {
 		return response;
 	}
 
+	@GetMapping("/attendance/{empId}/{startDate}/{endDate}")
+	public EmployeeAttendanceResponse getEmAttendanceBetweenTime( 
+			@PathVariable  @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate,
+			@PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate, @PathVariable(value="empId") int empId) {
+		System.out.println("emp Id " + empId);
+		EmployeeAttendanceResponse response = new EmployeeAttendanceResponse();
+		List<EmployeeAttendance> attendanceEntityList = empAttendanceSer.getEmAttendanceBetweenDate(startDate, endDate, empId);
+		if (attendanceEntityList != null) {
+
+			response.setCode(200);
+			response.setMessage("success");
+			response.setData(attendanceEntityList);
+		} else {
+			response.setCode(401);
+			response.setMessage("unauthorized");
+		}
+		return response;
+	}
 	@GetMapping("/attendance/{startDate}/{endDate}")
-	public EmployeeAttendanceResponse getEmAttendanceBetweenTime(
+	public EmployeeAttendanceResponse getEmAttendanceBetweenTimeAndDate( 
 			@PathVariable  @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate,
 			@PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate, @RequestParam(value="empId", defaultValue = "0") int empId) {
 		System.out.println("emp Id " + empId);
 		EmployeeAttendanceResponse response = new EmployeeAttendanceResponse();
-		List<EmployeeAttendance> attendanceEntityList = empAttendanceSer.getEmAttendanceBetweenDate(startDate, endDate);
+		List<EmployeeAttendance> attendanceEntityList = empAttendanceSer.getEmAttendanceBetweenDateAndTime(startDate, endDate);
 		if (attendanceEntityList != null) {
 
 			response.setCode(200);
@@ -74,20 +92,5 @@ public class EmployeeAttendanceController {
 		return response;
 	}
 
-	@PutMapping("/attendance/update")
-	public EmployeeAttendanceResponse updateAttendance(@RequestBody EmployeeAttendance employeeAttendance) {
-		EmployeeAttendanceResponse response = new EmployeeAttendanceResponse();
-		EmployeeAttendance attendanceEntity = empAttendanceSer.updateEmployeeAttendance(employeeAttendance);
-		if (attendanceEntity != null) {
-
-			response.setCode(200);
-			response.setMessage("success");
-			response.setData(attendanceEntity);
-		} else {
-			response.setCode(401);
-			response.setMessage("unauthorized");
-		}
-		return response;
-	}
-
+	
 }

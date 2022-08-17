@@ -14,5 +14,6 @@ public interface EmployeeAttendanceService {
 	EmployeeAttendance saveEmployeeAttendance(EmployeeAttendance employeeAttendance);
 
 	EmployeeAttendance updateEmployeeAttendance(EmployeeAttendance employeeAttendance);
-    List<EmployeeAttendance> getEmAttendanceBetweenDate(Date startDate, Date EndDate);
+    List<EmployeeAttendance> getEmAttendanceBetweenDate(Date startDate, Date EndDate, int empId);
+    List<EmployeeAttendance> getEmAttendanceBetweenDateAndTime(Date startDate, Date EndDate);
 }

@@ -45,7 +45,12 @@ public class EmployeeAttendanceImpl implements EmployeeAttendanceService {
 	}
 
 	@Override
-	public List<EmployeeAttendance> getEmAttendanceBetweenDate(Date startDate, Date endDate) {
+	public List<EmployeeAttendance> getEmAttendanceBetweenDate(Date startDate, Date endDate, int empId) {
+		return this.eAttendanceRepo.findAllWithEmpId(startDate, endDate, empId);
+	}
+
+	@Override
+	public List<EmployeeAttendance> getEmAttendanceBetweenDateAndTime(Date startDate, Date endDate) {
 		return this.eAttendanceRepo.findAllWithCreationDateTimeBefore(startDate, endDate);
 	}
 
