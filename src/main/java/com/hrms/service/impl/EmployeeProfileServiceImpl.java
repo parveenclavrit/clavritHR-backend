@@ -1,12 +1,16 @@
 package com.hrms.service.impl;
 
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hrms.dto.EProfileDataDto;
 import com.hrms.dto.EmployeeHrmsDetailDto;
@@ -54,13 +58,31 @@ public class EmployeeProfileServiceImpl implements EmployeeProfileService {
 	@Override
 	public EProfileDataDto getEmployeeProfile(Integer emp_id) throws Exception {
 		EmployeeMaster empEntity = eMasterService.getEmployee(emp_id);
-		EmployeeHrmsDetail hrmsEntity = employeeHrmsService.getEmployeeByEmployeeId(emp_id);
-		EmployeePersonalDetail personalDetails = empPeronalDetailsService.getEmployeePersonalDetailsByEmployeeId(emp_id);
+		return getEmployeeDetailsByEmpId(empEntity);
+	}
+
+	private EProfileDataDto getEmployeeDetailsByEmpId(EmployeeMaster empEntity)
+			throws JsonProcessingException, JsonMappingException {
+		EmployeeHrmsDetail hrmsEntity = employeeHrmsService.getEmployeeByEmployeeId(empEntity.getId());
+		EmployeePersonalDetail personalDetails = empPeronalDetailsService.getEmployeePersonalDetailsByEmployeeId(empEntity.getId());
 		ObjectMapper mapper = new ObjectMapper();
 		EmployeeMasterDto empMasterDto =  mapper.readValue(mapper.writeValueAsString(empEntity), EmployeeMasterDto.class);
 		EmployeeHrmsDetailDto hrmsDto =  mapper.readValue(mapper.writeValueAsString(hrmsEntity), EmployeeHrmsDetailDto.class);
 		EmployeePersonalDetailsDto personalDto  =  mapper.readValue(mapper.writeValueAsString(personalDetails), EmployeePersonalDetailsDto.class);
 		return new EProfileDataDto(personalDto, hrmsDto, empMasterDto);
 	}
+
+	@Override
+	public List<EProfileDataDto> getAllEmployeeProfile() throws JsonMappingException, JsonProcessingException {
+		List<EmployeeMaster> empEntityList = eMasterService.getAllEmployee();
+		List<EProfileDataDto> response = new ArrayList<>();
+		for(EmployeeMaster emp: empEntityList) {
+			EProfileDataDto dto = this.getEmployeeDetailsByEmpId(emp);
+			response.add(dto);
+		}
+		return response;
+	}
+	
+	
 
 }

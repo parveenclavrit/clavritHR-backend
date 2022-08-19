@@ -24,7 +24,6 @@ public class EmployeeAttendance {
 	@Column(name="udated_on")
 	private Date udatedOn;
 	
-	
 
 	public Integer getId() {
 		return id;

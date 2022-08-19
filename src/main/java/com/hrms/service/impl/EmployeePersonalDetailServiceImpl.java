@@ -1,13 +1,16 @@
 package com.hrms.service.impl;
 
 import java.util.Date;
-
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.hrms.dto.EmployeePersonalDetailsDto;
+import com.hrms.entity.EmployeeMaster;
 import com.hrms.entity.EmployeePersonalDetail;
 import com.hrms.repository.EmployeePersonalDetailsRepository;
 import com.hrms.service.EmployeePersonalDetailService;
@@ -17,7 +20,7 @@ public class EmployeePersonalDetailServiceImpl implements EmployeePersonalDetail
 
 	@Autowired
 	private EmployeePersonalDetailsRepository repo;
-	
+
 	@Override
 	public EmployeePersonalDetail getEmpPersonalDetailsById(Integer id) {
 		return repo.findById(id).get();
@@ -47,9 +50,15 @@ public class EmployeePersonalDetailServiceImpl implements EmployeePersonalDetail
 
 	@Override
 	public EmployeePersonalDetail getEmployeePersonalDetailsByEmployeeId(Integer emp_id) {
-		// TODO Auto-generated method stub
-		return null;
+		return repo.findByEmp_Id(emp_id);
 	}
 
-	
+	@Override
+	public Map<Integer, String> getAllEmployeeNamesByIds(List<Integer> empIds) {
+		List<EmployeePersonalDetail> list = repo.findAllByEmpIdIn(empIds);
+		Map<Integer, String> nameMap = list.stream()
+				.collect(Collectors.toMap(EmployeePersonalDetail::getEmp_id, EmployeePersonalDetail::getName));
+		return nameMap;
+	}
+
 }

@@ -15,4 +15,6 @@ public interface EmployeeMasterService {
 
 	public EmployeeMaster saveEmployeeMaster(Date currentDate, EmployeeMasterDto employeeMasterDto);
 
+	public List<EmployeeMaster> getAllEmployee();
+
 }

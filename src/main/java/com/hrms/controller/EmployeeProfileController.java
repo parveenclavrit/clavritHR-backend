@@ -43,10 +43,16 @@ public class EmployeeProfileController {
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 	
-	/*@GetMapping("/employee-profile/{emp_id}")
+	@GetMapping("/employee-profile/{emp_id}")
 	  public ResponseEntity<EProfileDataDto> getEmployeeProfile(@PathVariable("emp_id") Integer emp_id) throws Exception {
 		EProfileDataDto response = profileService.getEmployeeProfile(emp_id);
 		return new ResponseEntity<>(response, HttpStatus.OK);
-	}**/
+	}
+	
+	@GetMapping("/employee-profile")
+	  public ResponseEntity<List<EProfileDataDto>> getAllEmployeeProfile() throws Exception {
+		List<EProfileDataDto> response = profileService.getAllEmployeeProfile();
+		return new ResponseEntity<>(response, HttpStatus.OK);
+	}
 
 }

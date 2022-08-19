@@ -47,13 +47,7 @@ public class EmployeeHrmsDetailServiceImpl implements EmployeeHrmsDetailService 
 
 	@Override
 	public EmployeeHrmsDetail getEmployeeByEmployeeId(Integer emp_id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	/*@Override
-	public EmployeeHrmsDetail getEmployeeByEmployeeId(Integer emp_id) {
 		return this.eRepo.findByEmp_id(emp_id);
-	}**/
+	}
 
 }

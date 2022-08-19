@@ -15,7 +15,7 @@ public interface EmployeeHrmsRepository extends JpaRepository<EmployeeHrmsDetail
 
 	public  List<EmployeeHrmsDetail> findAllByIdIn(List<Integer> ids);
 
-	//@Query(value = "select t from EmployeeHrmsDetail t where t.emp_id = :emp_id")
-	//public EmployeeHrmsDetail findByEmp_id(@Param("emp_id")Integer emp_id);
+	@Query(value = "select t from EmployeeHrmsDetail t where t.emp_id = :emp_id")
+	public EmployeeHrmsDetail findByEmp_id(@Param("emp_id")Integer emp_id);
 
 }

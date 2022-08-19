@@ -3,6 +3,7 @@ package com.hrms.service.impl;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -46,4 +47,10 @@ public class EmployeeMasterServiceImpl implements EmployeeMasterService {
 		eM.setUpdated_on(currentDate);
 		return this.eRepo.save(eM);
 	}
+
+	@Override
+	public List<EmployeeMaster> getAllEmployee() {
+		return eRepo.findAll();
+	}
+
 }

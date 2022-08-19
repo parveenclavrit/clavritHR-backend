@@ -15,14 +15,22 @@ public interface EmployeeAttendanceRepository extends JpaRepository<EmployeeAtte
 	List<EmployeeAttendance> findAllByIdIn(List<Integer> ids);
 
 	// EmployeeAttendance getTodayAttendance(Date todayDate);
-	 public List<EmployeeAttendance> getAttendanceByCreatedOnBetween(Date startDate, Date endDate);
-    
-	@Query(value="SELECT * FROM employee_attendance WHERE created_on >= :startDate AND created_on <= :endDate AND emp_id = :empId",nativeQuery = true)
+	public List<EmployeeAttendance> getAttendanceByCreatedOnBetween(Date startDate, Date endDate);
+
+	@Query(value = "SELECT * FROM employee_attendance WHERE created_on >= :startDate AND created_on <= :endDate AND emp_id = :empId", nativeQuery = true)
 	List<EmployeeAttendance> findAllWithEmpId(Date startDate, Date endDate, int empId);
 
-	@Query(value="SELECT * FROM employee_attendance WHERE created_on >= :startDate AND created_on <= :endDate" ,nativeQuery = true)
+	@Query(value = "SELECT * FROM employee_attendance WHERE created_on >= :startDate AND created_on <= :endDate", nativeQuery = true)
 	List<EmployeeAttendance> findAllWithCreationDateTimeBefore(Date startDate, Date endDate);
+
+	@Query(value = "SELECT * FROM employee_attendance WHERE date(created_on) between date(:startDate) "
+			+ " AND date(:endDate)", nativeQuery = true)
+	List<EmployeeAttendance> findAllWithCreationDateBetweenCustom(@Param("startDate") String startDate,
+			@Param("endDate") String endDate);
 	
+	@Query(value = "SELECT * FROM employee_attendance WHERE emp_id = :emp_id AND DATE(punch_in) = DATE(NOW())", nativeQuery = true)
+	EmployeeAttendance findTodayAttendenceByEmpId(@Param("emp_id")Integer empId);
+
 //public List<EmployeeAttendance> getAttendanceByDateAndId(Date startDate, Date endDate, int empId);
 //    
 //	@Query(value="SELECT * FROM employee_attendance WHERE created_on >= :startDate AND created_on <= :endDate, And empId" ,nativeQuery = true)
