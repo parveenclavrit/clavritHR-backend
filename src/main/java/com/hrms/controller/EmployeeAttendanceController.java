@@ -126,7 +126,7 @@ public class EmployeeAttendanceController {
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 
-	@GetMapping("/attendance/{empId}")
+	@GetMapping("/attendance/employee/{empId}")
 	public ResponseEntity<?> upload(@PathVariable("empId") Integer empId) throws Exception {
 		EmployeeAttendance empAttendence = empAttendanceSer.findTodayAttendenceByEmpId(empId);
 		EmployeeAttendanceResponse response = new EmployeeAttendanceResponse();
