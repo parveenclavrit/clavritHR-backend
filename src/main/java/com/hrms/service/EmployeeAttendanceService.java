@@ -15,9 +15,9 @@ public interface EmployeeAttendanceService {
 
 	EmployeeAttendance updateEmployeeAttendance(EmployeeAttendance employeeAttendance);
 
-	List<EmployeeAttendance> getEmAttendanceBetweenDate(Date startDate, Date EndDate, int empId);
+	List<EmployeeAttendance> getEmAttendanceBetweenDate(Date startDate, Date endDate, int empId);
 
-	List<EmployeeAttendance> getEmAttendanceBetweenDateAndTime(String startDate, String EndDate);
+	List<EmployeeAttendance> getEmAttendanceBetweenDateAndTime(String startDate, String endDate, Integer empId);
 
 	EmployeeAttendance findTodayAttendenceByEmpId(Integer empId);
 }

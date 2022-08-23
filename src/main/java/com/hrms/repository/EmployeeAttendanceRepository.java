@@ -31,6 +31,11 @@ public interface EmployeeAttendanceRepository extends JpaRepository<EmployeeAtte
 	@Query(value = "SELECT * FROM employee_attendance WHERE emp_id = :emp_id AND DATE(punch_in) = DATE(NOW())", nativeQuery = true)
 	EmployeeAttendance findTodayAttendenceByEmpId(@Param("emp_id")Integer empId);
 
+	@Query(value = "SELECT * FROM employee_attendance WHERE date(created_on) between date(:startDate) "
+			+ " AND date(:endDate) and emp_id = :empId", nativeQuery = true)
+	List<EmployeeAttendance> findAllWithEmpIdBetweenStartDateAndEndDate(String startDate, String endDate,
+			Integer empId);
+
 //public List<EmployeeAttendance> getAttendanceByDateAndId(Date startDate, Date endDate, int empId);
 //    
 //	@Query(value="SELECT * FROM employee_attendance WHERE created_on >= :startDate AND created_on <= :endDate, And empId" ,nativeQuery = true)

@@ -94,10 +94,10 @@ public class EmployeeAttendanceController {
 
 	@GetMapping("/attendance/{startDate}/{endDate}")
 	public ResponseEntity<EmployeeAttendanceResponse> getEmAttendanceBetweenTimeAndDate(@PathVariable String startDate,
-			@PathVariable String endDate) {
+			@PathVariable String endDate, @RequestParam(value = "empId", required = false) Integer empId) {
 		EmployeeAttendanceResponse response = new EmployeeAttendanceResponse();
 		List<EmployeeAttendance> attendanceEntityList = empAttendanceSer.getEmAttendanceBetweenDateAndTime(startDate,
-				endDate);
+				endDate, empId);
 
 		if (attendanceEntityList != null && !attendanceEntityList.isEmpty()) {
 			List<Integer> empIds = attendanceEntityList.stream().map(emp -> emp.getEmpId()).distinct()
@@ -126,7 +126,7 @@ public class EmployeeAttendanceController {
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 
-	@GetMapping("/attendance/employee/{empId}")
+	@GetMapping("/attendance/{empId}")
 	public ResponseEntity<?> upload(@PathVariable("empId") Integer empId) throws Exception {
 		EmployeeAttendance empAttendence = empAttendanceSer.findTodayAttendenceByEmpId(empId);
 		EmployeeAttendanceResponse response = new EmployeeAttendanceResponse();
