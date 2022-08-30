@@ -61,4 +61,13 @@ public class EmployeePersonalDetailServiceImpl implements EmployeePersonalDetail
 		return nameMap;
 	}
 
+	@Override
+	public EmployeePersonalDetail updateEmp2(EmployeePersonalDetail employeePersonalDetail) {
+		Integer	empID=employeePersonalDetail.getEmp_id();
+		EmployeePersonalDetail emp2=repo.findById(empID).get();
+		emp2.setName(employeePersonalDetail.getName());
+		emp2.setAddress(employeePersonalDetail.getAddress());
+		return repo.save(emp2);
+	}
+
 }

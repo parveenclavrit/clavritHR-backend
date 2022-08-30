@@ -8,11 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.hrms.dto.EProfileDataDto;
 import com.hrms.response.EmployeeProfileResDto;
@@ -54,5 +50,17 @@ public class EmployeeProfileController {
 		List<EProfileDataDto> response = profileService.getAllEmployeeProfile();
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
+   @DeleteMapping ("/delete_employee/{emp_id}")
+	public ResponseEntity<String> deleteEmpProfile(@PathVariable("emp_id") Integer emp_id) throws Exception {
+         // profileService.getEmployeeProfile(emp_id);
+	 //  EProfileDataDto response =
+			   profileService.deleteEmployee(emp_id);
+	   return new ResponseEntity<>("Employee id: "+ emp_id + " deleted successfully", HttpStatus.OK);
+   }
+   @PutMapping("/update-employee")
+   public EProfileDataDto updateEmpDetail(@RequestBody EProfileDataDto req){
+		//return profileService.updateEmployeeDetail(req);
 
+		return null;
+   }
 }

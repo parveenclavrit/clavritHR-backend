@@ -17,4 +17,7 @@ public interface EmployeeMasterService {
 
 	public List<EmployeeMaster> getAllEmployee();
 
+	public void EmployeedeleteById(Integer id);
+
+	public EmployeeMaster updateEmp(EmployeeMaster employeeMaster);
 }

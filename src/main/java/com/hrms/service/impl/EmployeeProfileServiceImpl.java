@@ -82,7 +82,25 @@ public class EmployeeProfileServiceImpl implements EmployeeProfileService {
 		}
 		return response;
 	}
-	
-	
+
+	@Override
+	public EProfileDataDto deleteEmployee(Integer emp_id) {
+		eMasterService.EmployeedeleteById(emp_id);
+		return null;
+	}
+
+//	@Override
+//	public EProfileDataDto updateEmployeeDetail(EProfileDataDto req) {
+//		return null;
+//	}
+
+	@Override
+	public EProfileDataDto updateEmployeeDetail(EmployeeMaster employeeMaster,EmployeePersonalDetail employeePersonalDetail,EmployeeHrmsDetail employeeHrmsDetail) {
+		eMasterService.updateEmp(employeeMaster);
+		empPeronalDetailsService.updateEmp2(employeePersonalDetail);
+        employeeHrmsService.updateEmp3(employeeHrmsDetail);
+		return null;
+	}
+
 
 }

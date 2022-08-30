@@ -53,4 +53,19 @@ public class EmployeeMasterServiceImpl implements EmployeeMasterService {
 		return eRepo.findAll();
 	}
 
+	@Override
+	public void EmployeedeleteById(Integer id) {
+		eRepo.deleteById(id);
+	}
+
+	@Override
+	public EmployeeMaster updateEmp(EmployeeMaster employeeMaster) {
+	Integer	empID=employeeMaster.getId();
+	    EmployeeMaster empDetail=eRepo.findById(empID).get();
+	    empDetail.setRole(employeeMaster.getRole());
+	    empDetail.setActive(employeeMaster.getActive());
+	    return eRepo.save(empDetail);
+
+	}
+
 }

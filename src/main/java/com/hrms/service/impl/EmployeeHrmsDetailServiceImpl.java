@@ -3,6 +3,7 @@ package com.hrms.service.impl;
 import java.util.Date;
 import java.util.Optional;
 
+import com.hrms.entity.EmployeeMaster;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -48,6 +49,16 @@ public class EmployeeHrmsDetailServiceImpl implements EmployeeHrmsDetailService 
 	@Override
 	public EmployeeHrmsDetail getEmployeeByEmployeeId(Integer emp_id) {
 		return this.eRepo.findByEmp_id(emp_id);
+	}
+
+	@Override
+	public EmployeeHrmsDetail updateEmp3(EmployeeHrmsDetail employeeHrmsDetail) {
+		Integer	empID=employeeHrmsDetail.getEmp_id();
+		EmployeeHrmsDetail empDetail=eRepo.findById(empID).get();
+		empDetail.setDepartment(employeeHrmsDetail.getDepartment());
+		empDetail.setDoj(employeeHrmsDetail.getDoj());
+		empDetail.setEmail(employeeHrmsDetail.getEmail());
+		return eRepo.save(empDetail);
 	}
 
 }
