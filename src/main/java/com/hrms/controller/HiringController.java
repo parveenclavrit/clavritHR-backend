@@ -16,7 +16,7 @@ public class HiringController  {
 	@Autowired
    EmployeeHiringSevice hiringSer;
 	
-	@GetMapping("/gethiring")
+	@GetMapping("/gethiring") 	
 	public List<EmployeeHiringDetail> gethiHiringDetails() {
 		return this.hiringSer.getALLEmployeeHiringDetails();
 
