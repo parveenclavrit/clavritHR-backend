@@ -1,6 +1,7 @@
 package com.hrms.service.impl;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,9 @@ public class LeaveRequestServiceImp implements LeaveRequestService {
 	@Override
 	@Transactional(rollbackFor = Exception.class)
 	public EmployeeLeaveRequest saveEmployeeLeaveRequest(Date currentDate, LeaveReqDto leaveDto) {
+		if (this.checkIfLeaveAlreadyAppliedForDate(leaveDto, currentDate)) {
+			return null;
+		}
 		EmployeeLeaveRequest eLeave = new EmployeeLeaveRequest();
 		eLeave.setFrom_date(leaveDto.getFrom_date());
 		eLeave.setLeave_type(leaveDto.getLeave_type());
@@ -37,5 +41,14 @@ public class LeaveRequestServiceImp implements LeaveRequestService {
 		eLeave.setCreated_on(currentDate);
 		eLeave.setUpdated_on(currentDate);
 		return eLeaveRepo.save(eLeave);
+	}
+
+	private boolean checkIfLeaveAlreadyAppliedForDate(LeaveReqDto leaveDto, Date currentDate) {
+		List<EmployeeLeaveRequest> list = eLeaveRepo.findAllByEmployeeIdAndDateBetween(leaveDto.getEmp_id(),
+				leaveDto.getFrom_date(), leaveDto.getTo_date());
+		if (list.isEmpty()) {
+			return false;
+		}
+		return true;
 	}
 }
