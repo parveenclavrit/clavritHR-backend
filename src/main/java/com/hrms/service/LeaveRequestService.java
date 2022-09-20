@@ -11,4 +11,6 @@ public interface LeaveRequestService {
 
 	public EmployeeLeaveRequest saveEmployeeLeaveRequest(Date currentDate, LeaveReqDto leaveDto);
 
+	public long getEmployeeLeavesByEmpId(Integer empId);
+
 }

@@ -1,8 +1,11 @@
 package com.hrms.service.impl;
 
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.atomic.AtomicLong;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -51,4 +54,38 @@ public class LeaveRequestServiceImp implements LeaveRequestService {
 		}
 		return true;
 	}
+
+	@Override
+	public long getEmployeeLeavesByEmpId(Integer empId) {
+		LocalDate currentDate = LocalDate.now();
+		LocalDate startOfYear = LocalDate.of(currentDate.getYear(), 01, 01);
+		LocalDate endOfYear = LocalDate.of(currentDate.getYear(), 12, 31);
+		List<EmployeeLeaveRequest> employeeLeavesList = eLeaveRepo.findAllByEmployeeIdAndDateBetween(empId,
+				startOfYear.toString(), endOfYear.toString());
+		AtomicLong totalLeaves = new AtomicLong();
+		employeeLeavesList.stream().forEach(empLeave-> {
+			LocalDate leaveFromDate = LocalDate.parse(empLeave.getFrom_date());
+			LocalDate leaveToDate = LocalDate.parse(empLeave.getTo_date());
+			long totalDaysOfLeave = 0;
+			if(leaveFromDate.getYear()<startOfYear.getYear()) {
+				totalDaysOfLeave = startOfYear.until(leaveToDate, ChronoUnit.DAYS) + 1;
+			} else if(leaveToDate.getYear() > endOfYear.getYear()) {
+				totalDaysOfLeave = leaveFromDate.until(endOfYear, ChronoUnit.DAYS) + 1;
+			} else {
+				totalDaysOfLeave = leaveFromDate.until(leaveToDate, ChronoUnit.DAYS) + 1;
+			}
+			totalLeaves.addAndGet(totalDaysOfLeave);
+		});
+		return totalLeaves.get();
+	}
+	
+	public static void main(String args[]) {
+		LocalDate toDate = LocalDate.parse("2022-01-05");
+		LocalDate currentDate = LocalDate.now();
+		LocalDate startOfYear = LocalDate.of(currentDate.getYear(), 01, 01);
+		long totalDaysOfLeave = startOfYear.until(toDate, ChronoUnit.DAYS) + 1;
+		System.out.println(totalDaysOfLeave);
+	}
+	
+	
 }
