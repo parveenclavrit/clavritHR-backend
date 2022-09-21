@@ -50,7 +50,7 @@ public class EmployeeProfileController {
 		List<EProfileDataDto> response = profileService.getAllEmployeeProfile();
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
-   @DeleteMapping ("/delete_employee/{emp_id}")
+   @GetMapping ("/delete_employee/{emp_id}")
 	public ResponseEntity<String> deleteEmpProfile(@PathVariable("emp_id") Integer emp_id) throws Exception {
          // profileService.getEmployeeProfile(emp_id);
 	 //  EProfileDataDto response =
