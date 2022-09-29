@@ -58,9 +58,8 @@ public class EmployeeProfileController {
 	   return new ResponseEntity<>("Employee id: "+ emp_id + " deleted successfully", HttpStatus.OK);
    }
    @PutMapping("/update-employee")
-   public EProfileDataDto updateEmpDetail(@RequestBody EProfileDataDto req){
-		//return profileService.updateEmployeeDetail(req);
-
-		return null;
+   public ResponseEntity<EmployeeProfileResDto> updateEmpDetail(@RequestBody EProfileDataDto req){
+	   EmployeeProfileResDto response = profileService.createEmployeeProfile(req);
+	   return new ResponseEntity<>(response, HttpStatus.OK);
    }
 }
