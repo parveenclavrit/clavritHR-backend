@@ -89,17 +89,20 @@ public class EmployeeProfileServiceImpl implements EmployeeProfileService {
 		return null;
 	}
 
-//	@Override
-//	public EProfileDataDto updateEmployeeDetail(EProfileDataDto req) {
-//		return null;
-//	}
-
 	@Override
-	public EProfileDataDto updateEmployeeDetail(EmployeeMaster employeeMaster,EmployeePersonalDetail employeePersonalDetail,EmployeeHrmsDetail employeeHrmsDetail) {
-		eMasterService.updateEmp(employeeMaster);
-		empPeronalDetailsService.updateEmp2(employeePersonalDetail);
-        employeeHrmsService.updateEmp3(employeeHrmsDetail);
-		return null;
+	public EmployeeProfileResDto updateEmployeeProfile(EProfileDataDto req2) {
+		final Date currentDate = new Date();
+		EmployeeHrmsDetailDto hrmsDto = req2.getEmpHrmsDetails();
+		EmployeePersonalDetailsDto personalDto = req2.getEmpPersonalDetails();
+		EmployeeMaster empMasterEntity = eMasterService.saveEmployeeMaster(currentDate, req2.getEmpMasterDetails());
+		hrmsDto.setEmp_id(empMasterEntity.getId());
+		personalDto.setEmp_id(empMasterEntity.getId());
+		employeeHrmsService.saveEmployeeHrmsDetails(currentDate, hrmsDto);
+		empPeronalDetailsService.saveEmployeePersonalDetails(currentDate, personalDto);
+		EmployeeProfileResDto response = new EmployeeProfileResDto();
+		response.setCode(200);
+		response.setMessage("Employee profile update successfully");
+		return response;
 	}
 
 

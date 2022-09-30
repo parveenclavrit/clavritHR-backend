@@ -4,6 +4,9 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import com.hrms.entity.EmployeeMaster;
+import com.hrms.enums.SuccessEnum;
+import com.hrms.repository.EmployeeMasterRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -51,15 +54,19 @@ public class EmployeeProfileController {
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
    @GetMapping ("/delete_employee/{emp_id}")
-	public ResponseEntity<String> deleteEmpProfile(@PathVariable("emp_id") Integer emp_id) throws Exception {
-         // profileService.getEmployeeProfile(emp_id);
-	 //  EProfileDataDto response =
-			   profileService.deleteEmployee(emp_id);
-	   return new ResponseEntity<>("Employee id: "+ emp_id + " deleted successfully", HttpStatus.OK);
+	public EmployeeProfileResDto deleteEmpProfile(@PathVariable("emp_id") Integer emp_id) throws Exception {
+		EmployeeProfileResDto response=new EmployeeProfileResDto();
+			  EProfileDataDto eProfileDataDto=profileService.deleteEmployee(emp_id);
+			 if (emp_id!=null) {
+				 //logger.info("campus deleted successfully");
+				 response.setCode(SuccessEnum.SUCCESS_TYPE.getCode());
+				 response.setMessage(SuccessEnum.SUCCESS_TYPE.getMessage());
+			 }
+	   return response;
    }
-   @PutMapping("/update-employee")
-   public ResponseEntity<EmployeeProfileResDto> updateEmpDetail(@RequestBody EProfileDataDto req){
-	   EmployeeProfileResDto response = profileService.createEmployeeProfile(req);
+   @PutMapping("/update-employee/{emp_id}")
+   public ResponseEntity<EmployeeProfileResDto> updateEmpDetail(@PathVariable(value = "emp_id") Integer emp_id, @RequestBody EProfileDataDto req){
+		EmployeeProfileResDto response = profileService.createEmployeeProfile(req);
 	   return new ResponseEntity<>(response, HttpStatus.OK);
    }
 }

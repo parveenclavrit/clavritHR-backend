@@ -18,7 +18,6 @@ public interface EmployeeProfileService {
 
 	public EProfileDataDto deleteEmployee(Integer emp_id);
 
-      public EProfileDataDto updateEmployeeDetail(EmployeeMaster employeeMaster, EmployeePersonalDetail employeePersonalDetail, EmployeeHrmsDetail employeeHrmsDetail);
-	 // public EProfileDataDto updateEmployeeDetail();
+     EmployeeProfileResDto updateEmployeeProfile(final EProfileDataDto req2);
 
 }
