@@ -5,6 +5,7 @@ import java.util.List;
 import javax.validation.Valid;
 
 import com.hrms.entity.EmployeeMaster;
+import com.hrms.enums.ExceptionEnum;
 import com.hrms.enums.SuccessEnum;
 import com.hrms.repository.EmployeeMasterRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +33,7 @@ public class EmployeeProfileController {
 		List<String> error = ValidateEmpProfileCreateReq.validateRequest(req);
 		if(!error.isEmpty()) {
 			EmployeeProfileResDto res = new EmployeeProfileResDto();
-			res.setCode(400);
+			res.setCode(ExceptionEnum.INVALID_PARAMETER.getErrorCode());
 			res.setError(true);
 			res.setMessage(String.join(",", error));
 			return new ResponseEntity<EmployeeProfileResDto>(res, HttpStatus.BAD_REQUEST);
@@ -62,11 +63,15 @@ public class EmployeeProfileController {
 				 response.setCode(SuccessEnum.SUCCESS_TYPE.getCode());
 				 response.setMessage(SuccessEnum.SUCCESS_TYPE.getMessage());
 			 }
+			 else{
+				 response.setCode(ExceptionEnum.DATA_NOT_FOUND.getErrorCode());
+				 response.setMessage(ExceptionEnum.DATA_NOT_FOUND.getMessage());
+			 }
 	   return response;
    }
    @PutMapping("/update-employee/{emp_id}")
-   public ResponseEntity<EmployeeProfileResDto> updateEmpDetail(@PathVariable(value = "emp_id") Integer emp_id, @RequestBody EProfileDataDto req){
-		EmployeeProfileResDto response = profileService.createEmployeeProfile(req);
+   public ResponseEntity<EmployeeProfileResDto> updateEmpDetail(@PathVariable(value = "emp_id") Integer emp_id, @RequestBody EProfileDataDto req2){
+		EmployeeProfileResDto response = profileService.updateEmployeeProfile(emp_id,req2);
 	   return new ResponseEntity<>(response, HttpStatus.OK);
    }
 }

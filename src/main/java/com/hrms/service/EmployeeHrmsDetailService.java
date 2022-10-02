@@ -13,5 +13,5 @@ public interface EmployeeHrmsDetailService {
 
 	public EmployeeHrmsDetail getEmployeeByEmployeeId(Integer emp_id);
 
-public EmployeeHrmsDetail updateEmp3(EmployeeHrmsDetail employeeHrmsDetail);
+public EmployeeHrmsDetail updateEmp3(Date currentDate,Integer emp_id,EmployeeHrmsDetailDto employeeHrmsDetail);
 }

@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import com.hrms.dto.EProfileDataDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -38,7 +39,7 @@ public class EmployeeMasterServiceImpl implements EmployeeMasterService {
 
 	@Override
 	@Transactional(rollbackFor = Exception.class)
-	public EmployeeMaster saveEmployeeMaster(final Date currentDate, final EmployeeMasterDto req) {
+	public EmployeeMaster saveEmployeeMaster(Date currentDate,EmployeeMasterDto req) {
 		EmployeeMaster eM = new EmployeeMaster();
 		eM.setActive(req.getActive());
 		eM.setRole(req.getRole());
@@ -59,9 +60,9 @@ public class EmployeeMasterServiceImpl implements EmployeeMasterService {
 	}
 
 	@Override
-	public EmployeeMaster updateEmp(EmployeeMaster employeeMaster) {
-	Integer	empID=employeeMaster.getId();
-	    EmployeeMaster empDetail=eRepo.findById(empID).get();
+	public EmployeeMaster updateEmp(Date currentDate,Integer id,EmployeeMasterDto employeeMaster) {
+		//Integer	empID=employeeMaster.getId();
+	    EmployeeMaster empDetail=eRepo.findById(id).get();
 	    empDetail.setRole(employeeMaster.getRole());
 	    empDetail.setActive(employeeMaster.getActive());
 	    return eRepo.save(empDetail);

@@ -52,9 +52,9 @@ public class EmployeeHrmsDetailServiceImpl implements EmployeeHrmsDetailService 
 	}
 
 	@Override
-	public EmployeeHrmsDetail updateEmp3(EmployeeHrmsDetail employeeHrmsDetail) {
-		Integer	empID=employeeHrmsDetail.getEmp_id();
-		EmployeeHrmsDetail empDetail=eRepo.findById(empID).get();
+	public EmployeeHrmsDetail updateEmp3(Date currentDate,Integer emp_id,EmployeeHrmsDetailDto employeeHrmsDetail) {
+		//Integer	empID=employeeHrmsDetail.getEmp_id();
+		EmployeeHrmsDetail empDetail=eRepo.findByEmp_id(emp_id);
 		empDetail.setDepartment(employeeHrmsDetail.getDepartment());
 		empDetail.setDoj(employeeHrmsDetail.getDoj());
 		empDetail.setEmail(employeeHrmsDetail.getEmail());

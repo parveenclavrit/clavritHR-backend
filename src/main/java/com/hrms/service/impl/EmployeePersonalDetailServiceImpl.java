@@ -62,9 +62,9 @@ public class EmployeePersonalDetailServiceImpl implements EmployeePersonalDetail
 	}
 
 	@Override
-	public EmployeePersonalDetail updateEmp2(EmployeePersonalDetail employeePersonalDetail) {
-		Integer	empID=employeePersonalDetail.getEmp_id();
-		EmployeePersonalDetail emp2=repo.findById(empID).get();
+	public EmployeePersonalDetail updateEmp2(Date currentDate,Integer emp_id,EmployeePersonalDetailsDto employeePersonalDetail) {
+		//Integer	empID=employeePersonalDetail.getEmp_id();
+		EmployeePersonalDetail emp2=repo.findByEmp_Id(emp_id);
 		emp2.setName(employeePersonalDetail.getName());
 		emp2.setAddress(employeePersonalDetail.getAddress());
 		return repo.save(emp2);

@@ -10,7 +10,7 @@ import com.hrms.response.EmployeeProfileResDto;
 
 public interface EmployeeProfileService {
 
-	EmployeeProfileResDto createEmployeeProfile(final EProfileDataDto req);
+	EmployeeProfileResDto createEmployeeProfile(EProfileDataDto req);
 
 	EProfileDataDto getEmployeeProfile(Integer emp_id) throws Exception;
 
@@ -18,6 +18,6 @@ public interface EmployeeProfileService {
 
 	public EProfileDataDto deleteEmployee(Integer emp_id);
 
-     EmployeeProfileResDto updateEmployeeProfile(final EProfileDataDto req2);
+     EmployeeProfileResDto updateEmployeeProfile(Integer emp_id,EProfileDataDto req2);
 
 }

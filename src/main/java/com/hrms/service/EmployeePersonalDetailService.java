@@ -18,6 +18,6 @@ public interface EmployeePersonalDetailService {
 	public EmployeePersonalDetail getEmployeePersonalDetailsByEmployeeId(Integer emp_id);
 
 	public Map<Integer, String> getAllEmployeeNamesByIds(List<Integer> empIds);
-	public EmployeePersonalDetail updateEmp2(EmployeePersonalDetail employeePersonalDetail);
+	public EmployeePersonalDetail updateEmp2(Date currentDate,Integer emp_id,EmployeePersonalDetailsDto employeePersonalDetail);
 
 }

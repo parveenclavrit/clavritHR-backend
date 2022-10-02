@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.hrms.enums.SuccessEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -50,8 +51,8 @@ public class EmployeeProfileServiceImpl implements EmployeeProfileService {
 		employeeHrmsService.saveEmployeeHrmsDetails(currentDate, hrmsDto);
 		empPeronalDetailsService.saveEmployeePersonalDetails(currentDate, personalDto);
 		EmployeeProfileResDto response = new EmployeeProfileResDto();
-		response.setCode(200);
-		response.setMessage("Employee profile created successfully");
+		response.setCode(SuccessEnum.SUCCESS_REGISTER.getCode());
+		response.setMessage(SuccessEnum.SUCCESS_REGISTER.getMessage());
 		return response;
 	}
 
@@ -90,18 +91,18 @@ public class EmployeeProfileServiceImpl implements EmployeeProfileService {
 	}
 
 	@Override
-	public EmployeeProfileResDto updateEmployeeProfile(EProfileDataDto req2) {
+	public EmployeeProfileResDto updateEmployeeProfile(Integer emp_id,EProfileDataDto req2) {
 		final Date currentDate = new Date();
-		EmployeeHrmsDetailDto hrmsDto = req2.getEmpHrmsDetails();
-		EmployeePersonalDetailsDto personalDto = req2.getEmpPersonalDetails();
-		EmployeeMaster empMasterEntity = eMasterService.saveEmployeeMaster(currentDate, req2.getEmpMasterDetails());
-		hrmsDto.setEmp_id(empMasterEntity.getId());
-		personalDto.setEmp_id(empMasterEntity.getId());
-		employeeHrmsService.saveEmployeeHrmsDetails(currentDate, hrmsDto);
-		empPeronalDetailsService.saveEmployeePersonalDetails(currentDate, personalDto);
+		EmployeeHrmsDetailDto hrmsDto2 = req2.getEmpHrmsDetails();
+		EmployeePersonalDetailsDto personalDto2 = req2.getEmpPersonalDetails();
+		EmployeeMaster empMasterEntity = eMasterService.updateEmp(currentDate,emp_id, req2.getEmpMasterDetails());
+		//hrmsDto2.setEmp_id(empMasterEntity.getId());
+		//personalDto2.setEmp_id(empMasterEntity.getId());
+		employeeHrmsService.updateEmp3(currentDate,emp_id, hrmsDto2);
+		empPeronalDetailsService.updateEmp2(currentDate,emp_id, personalDto2);
 		EmployeeProfileResDto response = new EmployeeProfileResDto();
-		response.setCode(200);
-		response.setMessage("Employee profile update successfully");
+		response.setCode(SuccessEnum.SUCCESS_TYPE.getCode());
+		response.setMessage(SuccessEnum.SUCCESS_UPDATE.getMessage());
 		return response;
 	}
 
