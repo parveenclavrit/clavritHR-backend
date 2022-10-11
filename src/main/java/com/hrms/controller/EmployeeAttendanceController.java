@@ -17,15 +17,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hrms.dto.EmployeeAttendanceDto;
 import com.hrms.dto.EmployeeAttendenceResDto;
-import com.hrms.dto.EmployeeHrmsDetailDto;
-import com.hrms.dto.EmployeeMasterDto;
-import com.hrms.dto.EmployeePersonalDetailsDto;
 import com.hrms.entity.EmployeeAttendance;
+import com.hrms.enums.ExceptionEnum;
+import com.hrms.enums.SuccessEnum;
 import com.hrms.response.EmployeeAttendanceResponse;
 import com.hrms.service.EmployeeAttendanceService;
 import com.hrms.service.EmployeeMasterService;
@@ -61,12 +58,12 @@ public class EmployeeAttendanceController {
 		EmployeeAttendance attendanceEntity = empAttendanceSer.saveEmployeeAttendance(employeeAttendance);
 		if (attendanceEntity != null) {
 
-			response.setCode(200);
-			response.setMessage("success");
+			response.setCode(SuccessEnum.SUCCESS_TYPE.getCode());
+			response.setMessage(SuccessEnum.SUCCESS_TYPE.getMessage());
 			response.setData(attendanceEntity);
 		} else {
-			response.setCode(401);
-			response.setMessage("unauthorized");
+			response.setCode(ExceptionEnum.DATA_NOT_FOUND.getErrorCode());
+			response.setMessage(ExceptionEnum.DATA_NOT_FOUND.getMessage());
 		}
 		return response;
 	}
@@ -82,12 +79,12 @@ public class EmployeeAttendanceController {
 				empId);
 		if (attendanceEntityList != null) {
 
-			response.setCode(200);
-			response.setMessage("success");
+			response.setCode(SuccessEnum.SUCCESS_TYPE.getCode());
+			response.setMessage(SuccessEnum.SUCCESS_TYPE.getMessage());
 			response.setData(attendanceEntityList);
 		} else {
-			response.setCode(401);
-			response.setMessage("unauthorized");
+			response.setCode(ExceptionEnum.DATA_NOT_FOUND.getErrorCode());
+			response.setMessage(ExceptionEnum.DATA_NOT_FOUND.getMessage());
 		}
 		return response;
 	}
@@ -115,12 +112,12 @@ public class EmployeeAttendanceController {
 					e.printStackTrace();
 				}
 			});
-			response.setCode(200);
-			response.setMessage("success");
+			response.setCode(SuccessEnum.SUCCESS_TYPE.getCode());
+			response.setMessage(SuccessEnum.SUCCESS_TYPE.getMessage());
 			response.setData(resp);
 		} else {
-			response.setCode(HttpStatus.NO_CONTENT.value());
-			response.setMessage("No Content found");
+			response.setCode(ExceptionEnum.DATA_NOT_FOUND.getErrorCode());
+			response.setMessage(ExceptionEnum.DATA_NOT_FOUND.getMessage());
 			return new ResponseEntity<>(response, HttpStatus.OK);
 		}
 		return new ResponseEntity<>(response, HttpStatus.OK);
@@ -134,12 +131,12 @@ public class EmployeeAttendanceController {
 			final ObjectMapper mapper = new ObjectMapper();
 			EmployeeAttendanceDto dto = mapper.readValue(mapper.writeValueAsString(empAttendence),
 					EmployeeAttendanceDto.class);
-			response.setCode(200);
-			response.setMessage("success");
+			response.setCode(SuccessEnum.SUCCESS_TYPE.getCode());
+			response.setMessage(SuccessEnum.SUCCESS_TYPE.getMessage());
 			response.setData(dto);
 		} else {
-			response.setCode(HttpStatus.NO_CONTENT.value());
-			response.setMessage("No Content found");
+			response.setCode(ExceptionEnum.DATA_NOT_FOUND.getErrorCode());
+			response.setMessage(ExceptionEnum.DATA_NOT_FOUND.getMessage());
 			return new ResponseEntity<>(response, HttpStatus.OK);
 		}
 		return new ResponseEntity<>(response, HttpStatus.OK);
