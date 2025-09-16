@@ -2,9 +2,14 @@ package com.hrms.service.impl;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicLong;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -86,6 +91,56 @@ public class LeaveRequestServiceImp implements LeaveRequestService {
 		long totalDaysOfLeave = startOfYear.until(toDate, ChronoUnit.DAYS) + 1;
 		System.out.println(totalDaysOfLeave);
 	}
+	
+	
+	
+	public List<EmployeeLeaveRequest> saveAllLeaveRequests(List<LeaveReqDto> leaveDtoList) {
+        Date now = new Date();
+
+        // Load existing leave requests
+        List<EmployeeLeaveRequest> existingList = eLeaveRepo.findAll();
+        Map<String, EmployeeLeaveRequest> existingMap = new HashMap<>();
+        for (EmployeeLeaveRequest e : existingList) {
+            String key = e.getEmp_id() + "|" + e.getFrom_date() + "|" + e.getTo_date();
+            existingMap.put(key, e);
+        }
+
+        List<EmployeeLeaveRequest> toSave = new ArrayList<>();
+        Set<String> seenKeys = new HashSet<>();
+
+        for (LeaveReqDto dto : leaveDtoList) {
+            String key = dto.getEmp_id() + "|" + dto.getFrom_date() + "|" + dto.getTo_date();
+
+            // Skip duplicates in Excel sheet
+            if (seenKeys.contains(key)) continue;
+            seenKeys.add(key);
+
+            if (existingMap.containsKey(key)) {
+                // Update existing record
+                EmployeeLeaveRequest existing = existingMap.get(key);
+                existing.setNo_of_leave(dto.getNo_of_leave());
+                existing.setLeave_type(dto.getLeave_type());
+                existing.setMessage(dto.getMessage());
+                existing.setUpdated_on(now);
+                toSave.add(existing);
+            } else {
+                // Create new record
+                EmployeeLeaveRequest newLeave = new EmployeeLeaveRequest();
+                newLeave.setEmp_id(dto.getEmp_id());
+                newLeave.setNo_of_leave(dto.getNo_of_leave());
+                newLeave.setFrom_date(dto.getFrom_date());
+                newLeave.setTo_date(dto.getTo_date());
+                newLeave.setLeave_type(dto.getLeave_type());
+                newLeave.setMessage(dto.getMessage());
+                newLeave.setCreated_on(now);
+                newLeave.setUpdated_on(now);
+                toSave.add(newLeave);
+            }
+        }
+
+        // Save all new/updated records
+        return eLeaveRepo.saveAll(toSave);
+    }
 	
 	
 }

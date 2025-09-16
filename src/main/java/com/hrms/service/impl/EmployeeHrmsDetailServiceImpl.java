@@ -1,7 +1,13 @@
 package com.hrms.service.impl;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 
 import com.hrms.entity.EmployeeMaster;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,5 +66,59 @@ public class EmployeeHrmsDetailServiceImpl implements EmployeeHrmsDetailService 
 		empDetail.setEmail(employeeHrmsDetail.getEmail());
 		return eRepo.save(empDetail);
 	}
+	
+	@Transactional
+	public List<EmployeeHrmsDetail> saveAllEmployeeHrmsDetails(List<EmployeeHrmsDetailDto> hrmsList) {
+	    Date now = new Date();
+	    
+	    // Step 1: Load existing HRMS details
+	    List<EmployeeHrmsDetail> existingList = eRepo.findAll();
+	    Map<String, EmployeeHrmsDetail> existingMap = new HashMap<String, EmployeeHrmsDetail>();
+	    for (EmployeeHrmsDetail e : existingList) {
+	        // Composite key: emp_id + email
+	        String key = e.getEmp_id() + "|" + e.getEmail().toLowerCase().trim();
+	        if (!existingMap.containsKey(key)) {
+	            existingMap.put(key, e);
+	        }
+	    }
+
+	    // Process incoming HRMS DTOs
+	    List<EmployeeHrmsDetail> toSave = new ArrayList<EmployeeHrmsDetail>();
+	    Set<String> seenKeys = new HashSet<String>();
+
+	    for (EmployeeHrmsDetailDto dto : hrmsList) {
+	        String key = dto.getEmp_id() + "|" + dto.getEmail().toLowerCase().trim();
+
+	        // Skip duplicates within the Excel sheet
+	        if (seenKeys.contains(key)) {
+	            continue;
+	        }
+	        seenKeys.add(key);
+
+	        if (existingMap.containsKey(key)) {
+	            // Update existing record
+	            EmployeeHrmsDetail existing = existingMap.get(key);
+	            existing.setDepartment(dto.getDepartment());
+	            existing.setDoj(dto.getDoj());
+	            existing.setSick_leaves(dto.getSick_leaves());
+	            existing.setUpdated_on(now);
+	            toSave.add(existing);
+	        } else {
+	            // Create new record
+	            EmployeeHrmsDetail newEmp = new EmployeeHrmsDetail();
+	            newEmp.setEmp_id(dto.getEmp_id());
+	            newEmp.setEmail(dto.getEmail());
+	            newEmp.setDepartment(dto.getDepartment());
+	            newEmp.setDoj(dto.getDoj());
+	            newEmp.setSick_leaves(dto.getSick_leaves());
+	            newEmp.setCreated_on(now);
+	            newEmp.setUpdated_on(now);
+	            toSave.add(newEmp);
+	        }
+	    }
+
+	    return eRepo.saveAll(toSave);
+	}
+
 
 }

@@ -1,10 +1,14 @@
 package com.hrms.service.impl;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import com.hrms.dto.EProfileDataDto;
@@ -68,5 +72,60 @@ public class EmployeeMasterServiceImpl implements EmployeeMasterService {
 	    return eRepo.save(empDetail);
 
 	}
+	
+	@Transactional(rollbackFor = Exception.class)
+	public List<EmployeeMaster> saveAllEmployeeMasters(List<EmployeeMasterDto> masters) {
+	    if (masters == null || masters.isEmpty()) {
+	        return new ArrayList<EmployeeMaster>();
+	    }
+
+	    Date now = new Date();
+	    List<EmployeeMaster> existingMasters = eRepo.findAll();
+
+	    // Create a map manually: key = role|type
+	    Map<String, EmployeeMaster> existingMap = new HashMap<String, EmployeeMaster>();
+	    for (EmployeeMaster em : existingMasters) {
+	        String key = em.getRole() + "|" + em.getType() + "|" + em.getPassword();
+	        if (!existingMap.containsKey(key)) {
+	            existingMap.put(key, em);
+	        }
+	    }
+
+	    Set<String> seenKeys = new HashSet<String>();
+	    List<EmployeeMaster> toSave = new ArrayList<EmployeeMaster>();
+
+	    for (EmployeeMasterDto dto : masters) {
+	    	String key = dto.getRole() + "|" + dto.getType() + "|" + dto.getPassword();
+
+	        if (seenKeys.contains(key)) {
+	            continue; // skip duplicate in Excel
+	        }
+	        seenKeys.add(key);
+
+	        if (existingMap.containsKey(key)) {
+	            // Update existing
+	            EmployeeMaster existing = existingMap.get(key);
+	            existing.setRole(dto.getRole());
+	            existing.setType(dto.getType());
+	            existing.setActive(dto.getActive());
+	            existing.setPassword(dto.getPassword());
+	            existing.setUpdated_on(now);
+	            toSave.add(existing);
+	        } else {
+	            // Insert new
+	            EmployeeMaster eM = new EmployeeMaster();
+	            eM.setRole(dto.getRole());
+	            eM.setType(dto.getType());
+	            eM.setActive(dto.getActive());
+	            eM.setPassword(dto.getPassword());
+	            eM.setCreated_on(now);
+	            eM.setUpdated_on(now);
+	            toSave.add(eM);
+	        }
+	    }
+
+	    return eRepo.saveAll(toSave);
+	}
+
 
 }
