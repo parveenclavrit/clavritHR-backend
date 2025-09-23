@@ -2,6 +2,7 @@ package com.hrms.service.impl;
 
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -15,6 +16,7 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 
 import com.hrms.entity.ClavritPeople;
+import com.hrms.entity.DailyReport;
 import com.hrms.entity.EmployeeAttendance;
 import com.hrms.entity.EmployeeHiringDetail;
 import com.hrms.entity.EmployeeHrmsDetail;
@@ -24,6 +26,7 @@ import com.hrms.entity.EmployeePersonalDetail;
 import com.hrms.entity.FileUpload;
 import com.hrms.entity.MyInfoDetail;
 import com.hrms.repository.ClavritpeopleRepository;
+import com.hrms.repository.DailyReportRepository;
 import com.hrms.repository.EmployeeAttendanceRepository;
 import com.hrms.repository.EmployeeHiringRepository;
 import com.hrms.repository.EmployeeHrmsRepository;
@@ -404,6 +407,75 @@ public class DataExportServiceImpl {
 	        ); // Only filename
 	    }
 	}
+	
+	
+	
+	
+	// for exporting Daily Time Sheet ---------------------------------------------------------------
+	
+	@Autowired
+    private DailyReportRepository dailyReportRepository;
+	
+	public void exportDailyReportsByEmail(String email, HttpServletResponse response) {
+        try {
+        	
+        	List<DailyReport> reports = dailyReportRepository.findByEmailOrderByDateAsc(email);
+
+        	if (reports == null || reports.isEmpty()) {
+        	    throw new RuntimeException("No daily reports found for email: " + email);
+        	}
+
+
+            Workbook workbook = new XSSFWorkbook();
+            Sheet sheet = workbook.createSheet("Daily Reports "+email);
+
+            String[] headers = {
+                "Date (mm/dd/yy)", "Attendance", "Tasks Performed",
+                "Technical Challenges Faced (If any)", "Project Name",
+                "Self Learning Topic Name", "Any other Activities"
+            };
+
+            Row headerRow = sheet.createRow(0);
+            for (int i = 0; i < headers.length; i++) {
+                headerRow.createCell(i).setCellValue(headers[i]);
+            }
+
+            int rowNum = 1;
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yy");
+
+            for (DailyReport report : reports) {
+                Row row = sheet.createRow(rowNum++);
+                int col = 0;
+
+                row.createCell(col++).setCellValue(
+                    report.getDate() != null ? report.getDate().format(formatter) : ""
+                );
+                row.createCell(col++).setCellValue(report.getAttendance() != null ? report.getAttendance() : "");
+                row.createCell(col++).setCellValue(report.getTasksPerformed() != null ? report.getTasksPerformed() : "");
+                row.createCell(col++).setCellValue(report.getTechnicalChallenges() != null ? report.getTechnicalChallenges() : "");
+                row.createCell(col++).setCellValue(report.getProjectName() != null ? report.getProjectName() : "");
+                row.createCell(col++).setCellValue(report.getSelfLearningTopic() != null ? report.getSelfLearningTopic() : "");
+                row.createCell(col++).setCellValue(report.getOtherActivities() != null ? report.getOtherActivities() : "");
+            }
+
+            for (int i = 0; i < headers.length; i++) {
+                sheet.autoSizeColumn(i);
+            }
+
+            response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+            response.setHeader("Content-Disposition", "attachment; filename=\"daily_reports.xlsx\"");
+
+            OutputStream out = response.getOutputStream();
+            workbook.write(out);
+            workbook.close();
+            out.flush();
+            out.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("Failed to export DailyReport data", e);
+        }
+    }
 
 
 }

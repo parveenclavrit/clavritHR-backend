@@ -45,7 +45,6 @@ public class ClavritPeopleDetailServiceImpl implements PeoplelService {
  // ------------------ Bulk save for Excel import ------------------
     
     public List<ClavritPeople> saveAllClavritPeople(List<PeopleDto> peopleList) {
-        Date now = new Date();
 
         // Load existing people
         List<ClavritPeople> existingList = peoplerpo.findAll();
