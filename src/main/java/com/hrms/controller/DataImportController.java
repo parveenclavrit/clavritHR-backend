@@ -24,8 +24,10 @@ import com.hrms.dto.EmployeePersonalDetailsDto;
 import com.hrms.dto.HiringDto;
 import com.hrms.dto.LeaveReqDto;
 import com.hrms.dto.PeopleDto;
+import com.hrms.entity.DailyReport;
 import com.hrms.entity.MyInfoDetail;
 import com.hrms.service.impl.ClavritPeopleDetailServiceImpl;
+import com.hrms.service.impl.DailyReportServiceImpl;
 import com.hrms.service.impl.DataImportServiceImpl;
 import com.hrms.service.impl.EmployeeAttendanceImpl;
 import com.hrms.service.impl.EmployeeHiringServiceImpl;
@@ -147,5 +149,28 @@ public class DataImportController {
 			return ResponseEntity.internalServerError().body(Collections.singletonMap("error", e.getMessage()));
 		}
 	}
+	
+	@Autowired
+	private DailyReportServiceImpl dailyReportServiceImpl;
+	
+	@PostMapping("/upload/dailyReports")
+    public ResponseEntity<Map<String, Object>> uploadDailyReports(@RequestParam("file") MultipartFile file) {
+        Map<String, Object> resultMap = new LinkedHashMap<>();
+        try (InputStream inputStream = file.getInputStream(); Workbook workbook = WorkbookFactory.create(inputStream)) {
+
+            List<DailyReport> reports = dataImportServiceImpl.readDailyReports(workbook);
+            resultMap.put("dailyReports", reports);
+
+            if (!reports.isEmpty()) {
+                dailyReportServiceImpl.saveAllDailyReports(reports);
+            }
+
+            return ResponseEntity.ok(resultMap);
+
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError()
+                    .body(Collections.singletonMap("error", e.getMessage()));
+        }
+    }
 
 }

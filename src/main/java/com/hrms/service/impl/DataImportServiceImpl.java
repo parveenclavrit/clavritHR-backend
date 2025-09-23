@@ -2,6 +2,8 @@ package com.hrms.service.impl;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -9,8 +11,10 @@ import java.util.List;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.DataFormatter;
+import org.apache.poi.ss.usermodel.DateUtil;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.expression.ParseException;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +25,7 @@ import com.hrms.dto.EmployeePersonalDetailsDto;
 import com.hrms.dto.HiringDto;
 import com.hrms.dto.LeaveReqDto;
 import com.hrms.dto.PeopleDto;
+import com.hrms.entity.DailyReport;
 import com.hrms.entity.MyInfoDetail;
 
 @Service
@@ -316,6 +321,74 @@ public class DataImportServiceImpl {
         } catch (NumberFormatException e) {
             return 0;
         }
+    }
+    
+ // ---------------- Daily Reports ----------------
+    public List<DailyReport> readDailyReports(Workbook workbook) {
+        List<DailyReport> allReports = new ArrayList<>();
+
+        for (int s = 0; s < workbook.getNumberOfSheets(); s++) {
+            Sheet sheet = workbook.getSheetAt(s);
+            if (sheet == null) continue;
+
+            // Employee info from top rows
+            if (!getCellValue(sheet.getRow(0), 0).equalsIgnoreCase("Employee Name") ||
+            	    !getCellValue(sheet.getRow(1), 0).equalsIgnoreCase("Email")) {
+            	    
+            	    continue;
+            	}
+
+            String employeeName = getCellValue(sheet.getRow(0), 1); // Row 0, Col 1
+            String email = getCellValue(sheet.getRow(1), 1);        // Row 1, Col 1
+
+            // Start from row 3 (row 2 is header)
+            for (int i = 3; i <= sheet.getLastRowNum(); i++) {
+                Row row = sheet.getRow(i);
+                if (row == null || isRowEmpty(row)) continue;
+                
+                String attendance = getCellValue(row, 1);
+                if (attendance == null || attendance.trim().isEmpty()) {
+                    // Skip rows where attendance is empty
+                    continue;
+                }
+
+                DailyReport report = new DailyReport();
+                report.setEmployeeName(employeeName);
+                report.setEmail(email);
+                report.setAttendance(attendance);
+
+                LocalDate localDate = null;
+                Cell dateCell = row.getCell(0);
+                if (dateCell != null) {
+                    if (dateCell.getCellType() == CellType.NUMERIC && DateUtil.isCellDateFormatted(dateCell)) {
+                        Date javaDate = dateCell.getDateCellValue();
+                        localDate = javaDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                    } else {
+                        String dateStr = getCellValue(dateCell);
+                        if (!dateStr.isEmpty()) {
+                            try {
+                                Date parsed = dateFormat.parse(dateStr);
+                                localDate = parsed.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                            } catch (Exception e) {
+                                // skip invalid date
+                                continue;
+                            }
+                        }
+                    }
+                }
+                report.setDate(localDate);
+
+                report.setTasksPerformed(getCellValue(row, 2));      // Tasks Performed
+                report.setTechnicalChallenges(getCellValue(row, 3)); // Technical Challenges
+                report.setProjectName(getCellValue(row, 4));         // Project Name
+                report.setSelfLearningTopic(getCellValue(row, 5));   // Self Learning
+                report.setOtherActivities(getCellValue(row, 6));     // Other Activities
+
+                allReports.add(report);
+            }
+        }
+
+        return allReports;
     }
 
 }
